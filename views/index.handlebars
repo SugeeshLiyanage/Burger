@@ -1,68 +1,44 @@
-<h1>Eat-Da-Burger !</h1>
+<div class="row">
+    <center>
+        <!-- Left side, ready to eat side -->
+        <div class="col-md-6">
+            <h4 class="red_font">Ready to eat!</h4>
+            <div id="ready_to_eat">
 
-<ul>
-    {{#each burgers}}
-    <li>
-        <p>
-            {{this.id}}.{{this.burger_name}}
+                <!-- Insert ready burgers here -->
+                {{#each burgers}}
+                {{#unless devoured}}
+                <form action="burger/eat/{{id}}" method="POST">
+                <div class="input-group">
+                    <li class="form-control">{{id}}. {{burger_name}}</li>
+                    <span class="input-group-btn">
+                        <button class="btn btn-success devour-button" type="submit">Devour It</button>
+                    </span>
+                </div>                
+                </form>
+                {{/unless}}
+                {{/each}}
+            </div>
+        </div>
 
-            <button data-burgerid="{{this.id}}" class="devour">Devour it</button>
-        </p>
-    </li>
-    {{/each}}
-</ul>
+        <!-- Right side (already eaten) -->
+        <div class="col-md-6">
+            <h4 class="red_font">Already eaten !</h4>
+            <div id="already_eaten">
 
-<form id="addburger" class="button-size">
-    <textarea type="text" name="burger"></textarea>
-    <button type="submit">Submit</button>
-</form>
+                <!-- Dynamically insert Eanten Burgers here -->
+                {{#each burgers}}
+                {{#if this.devoured}}
+                <div class="input-group">
+                    <li class="form-control">{{this.id}}. {{this.burger_name}}</li>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info whine-button" type="button">Delete</button>                       
+                    </span>
+                </div>
 
-<form id="updateburger" class="button-size">
-    <button type="submit">Devour It</button>
-</form>
-
-<script type="text/javascript">
-$("#addburger").on("submit", function(event) {
-    //Make sure to prevent Default on a submit event
-    event.preventDefault();
-
-    var newBurger = {
-        burger: $("#addburger [name=burger]").val().trim()
-    };
-
-    //Send the POST request
-    $.ajax("/burgers", {
-        type: "POST",
-        data: newBurger
-    }).then(
-        function() {
-            console.log("added new burger");
-            // Reload the page to get the updated list
-            location.reload();
-        }
-    );
-});
-
-$("#updateburger").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event
-    event.preventDefault();
-
-    var id = $("[name=id]").val().trim()
-
-    var updatedBurger = {
-        burger: $("#updateburger [name=burger]").val().trim()
-    };
-
-    // Send the PUT request
-    $.ajax("/burgers/" + id, {
-        type: "PUT",
-        data: updatedBurger
-    }).then(
-        function() {
-            console.log("updated id ", id);
-            // Reload the page to get the updated list
-            location.reload();
-        }
-    );
-});
-</script>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </center>
+</div>

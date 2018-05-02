@@ -53,7 +53,7 @@ insertOne: function(burger_name, callback) {
         minute = '0' + minute;
     }
     timestamp += minute + ':';
-    var minute = '' + d.getSeconds();
+    var second = '' + d.getSeconds();
     // handle 1 digit second
     if(second.length == 1){
         second = '0' + second;
@@ -64,7 +64,7 @@ insertOne: function(burger_name, callback) {
     // Run MySQL Query
     connection.query('INSERT INTO burgers SET ?', {
         burger_name: burger_name,
-        vevoured: false,
+        devoured: false,
         date: timestamp
     }, function (err, result) {
         if (err) throw err;
