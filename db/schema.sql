@@ -8,3 +8,5 @@ CREATE TABLE burgers (
     devoured BOOLEAN,
     date TIMESTAMP
 );
+
+

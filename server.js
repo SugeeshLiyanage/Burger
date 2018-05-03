@@ -18,7 +18,7 @@ var router = require('./controllers/burgers_controller.js');
 app.use('/', router);
 
 // open server
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || server.js;
 app.listen(port);
 
 
